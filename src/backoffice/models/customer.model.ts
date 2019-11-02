@@ -4,14 +4,14 @@ import { CreditCard } from './credit-card.model';
 import { User } from './user.model';
 
 export class Customer {
-
-  constructor(public name: string,
-              public document: string,
-              public email: string,
-              public pets: Pet[],
-              public bilingAddress: Address,
-              public shippingAddress: Address,
-              public creditCard: CreditCard,
-              public user: User,
+  constructor(
+    public name: string,
+    public document: string,
+    public email: string,
+    public pets: Pet[],
+    public bilingAddress: Address,
+    public shippingAddress: Address,
+    public creditCard: CreditCard,
+    public user: User,
   ) {}
 }

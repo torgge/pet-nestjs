@@ -1,31 +1,36 @@
 import * as mongoose from 'mongoose';
 
-export const UserSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-    trim: true,
-    index: {
-      unique: true,
+export const UserSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      trim: true,
+      index: {
+        unique: true,
+      },
+    },
+    password: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    roles: [
+      {
+        type: String,
+        required: true,
+        enum: ['user', 'admin'],
+        default: 'user',
+      },
+    ],
+    active: {
+      type: Boolean,
+      required: true,
+      default: true,
     },
   },
-  password: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  roles: [{
-    type: String,
-    required: true,
-    enum: ['user', 'admin'],
-    default: 'user',
-  }],
-  active: {
-    type: Boolean,
-    required: true,
-    default: true,
-  },
-}, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
+  { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } },
+);
 // }, { id: false }); // id é um virtual que retorna o valor do _id
 // }, { _id: false }); // remove o _id do schema
 // }, { minimize: false }); // Por padrão o mongo minimiza os docs, não persistindo propriedades que não tem dados
