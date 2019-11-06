@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { Contract } from '../contract';
-import { Pet } from '../../models/pet.model';
 import { FluentValidator } from '../../../../utils/fluent-validator';
 import { QueryDto } from '../../dtos/query.dto';
 
@@ -11,8 +10,8 @@ export class QueryCustomerContract implements Contract {
   validate(model: QueryDto): boolean {
     const flunt = new FluentValidator();
 
-    flunt.hasMaxLen(model.take, 25, 'Não são permitidos resultados acima de 25 items por request');
-    flunt.hasMinLen(model.skip, 0, 'skip não pode ser vaio');
+    flunt.isGreaterThan(model.take, 1000, `Sua query não pode retornar mais que 1000 registros`);
+    flunt.hasMinLen(model.skip, 0, 'skip não pode ser vazio');
 
     this.errors = flunt.errors;
     return flunt.isValid();
