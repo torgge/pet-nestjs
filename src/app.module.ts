@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { BackofficeModule } from './backoffice/backoffice.module';
+import { BackofficeModule } from './modules/backoffice/backoffice.module';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({

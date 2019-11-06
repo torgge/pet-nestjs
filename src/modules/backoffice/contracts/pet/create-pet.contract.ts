@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Contract } from '../contract';
-import { FluentValidator } from '../../../utils/fluent-validator';
+import { FluentValidator } from '../../../../utils/fluent-validator';
 import { Pet } from '../../models/pet.model';
 
 @Injectable()

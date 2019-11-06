@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Contract } from '../contract';
 import { Pet } from '../../models/pet.model';
-import { FluentValidator } from '../../../utils/fluent-validator';
+import { FluentValidator } from '../../../../utils/fluent-validator';
 import { QueryDto } from '../../dtos/query.dto';
 
 @Injectable()

@@ -1,5 +1,5 @@
 import { Contract } from '../contract';
-import { FluentValidator } from '../../../utils/fluent-validator';
+import { FluentValidator } from '../../../../utils/fluent-validator';
 import { Injectable } from '@nestjs/common';
 import { CreateCustomerDto } from '../../dtos/create-customer.dto';
 
