@@ -9,6 +9,7 @@ import { CustomerService } from './services/customer.service';
 import { AddressService } from './services/address.service';
 import { PetService } from './services/pet.service';
 import { AddressController } from './controller/address.controller';
+import { PetController } from './controller/pet.controller';
 
 @Module({
   imports: [
@@ -23,7 +24,9 @@ import { AddressController } from './controller/address.controller';
       },
     ]),
   ],
-  controllers: [CustomerController, AddressController],
+  controllers: [CustomerController,
+                AddressController,
+                PetController],
   providers: [
     AccountService,
     CustomerService,

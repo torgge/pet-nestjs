@@ -3,6 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { Customer } from '../models/customer.model';
 import { QueryDto } from '../dtos/query.dto';
+import { UpdateCustomerDto } from '../dtos/update-customer.dto';
+import { CreditCard } from '../models/credit-card.model';
 
 @Injectable()
 export class CustomerService {
@@ -39,5 +41,18 @@ export class CustomerService {
           limit: model.take,
         })
       .sort(model.sort);
+  }
+
+  async update(document: string, data: UpdateCustomerDto): Promise<Customer> {
+    return await this.model.findOneAndUpdate({ document }, data);
+  }
+
+  async saveOrUpdateCreditCard(document: string, data: CreditCard): Promise<Customer> {
+    const options = { upsert: true}
+    return await this.model.findOneAndUpdate({ document }, {
+      $Set: {
+        card: data,
+      },
+    });
   }
 }

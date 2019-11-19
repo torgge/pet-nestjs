@@ -8,7 +8,8 @@ import { Result } from '../models/result.model';
 @Controller('v1/pets')
 export class PetController {
 
-  constructor(private readonly petService: PetService) { }
+  constructor(private readonly petService: PetService) {
+  }
 
   @Post(':document')
   @UseInterceptors(new ValidatorInterceptor(new CreatePetContract()))
