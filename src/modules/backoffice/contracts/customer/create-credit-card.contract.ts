@@ -13,7 +13,11 @@ export class CreateCreditCardContract implements Contract {
 
     flunt.hasMinLen(model.holder, 5, `Nome no cartão inválido`);
     flunt.isFixedLen(model.number, 16, `Numero do cartão inválido`);
-    flunt.isFixedLen(model.expiration, 4, `Data de expiração do cartão inválida`);
+    flunt.isFixedLen(
+      model.expiration,
+      4,
+      `Data de expiração do cartão inválida`,
+    );
 
     this.errors = flunt.errors;
     return flunt.isValid();

@@ -5,13 +5,14 @@ import { User } from '../models/user.model';
 
 @Injectable()
 export class AccountService {
-  constructor(
-    @InjectModel('User')
-    private readonly model: Model<User>) {
-  }
+  constructor(@InjectModel('User') private readonly model: Model<User>) {}
 
   async create(data: User): Promise<User> {
     const user = new this.model(data);
     return user.save();
+  }
+
+  async findOneByUsername(username): Promise<User> {
+    return new User(`Juca`, `ervamate`, true);
   }
 }

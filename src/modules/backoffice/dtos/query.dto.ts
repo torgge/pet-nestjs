@@ -5,7 +5,5 @@ export class QueryDto {
     public sort: string,
     public skip: number = 0,
     public take: number = 25,
-  ) {
-
-  }
+  ) {}
 }

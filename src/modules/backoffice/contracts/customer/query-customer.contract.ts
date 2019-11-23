@@ -10,7 +10,11 @@ export class QueryCustomerContract implements Contract {
   validate(model: QueryDto): boolean {
     const flunt = new FluentValidator();
 
-    flunt.isGreaterThan(model.take, 1000, `Sua query não pode retornar mais que 1000 registros`);
+    flunt.isGreaterThan(
+      model.take,
+      1000,
+      `Sua query não pode retornar mais que 1000 registros`,
+    );
     flunt.hasMinLen(model.skip, 0, 'skip não pode ser vazio');
 
     this.errors = flunt.errors;
