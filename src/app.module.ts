@@ -1,19 +1,32 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BackofficeModule } from './modules/backoffice/backoffice.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { StoreModule } from './modules/store/store.module';
 
 @Module({
   imports: [
     MongooseModule.forRoot(
-      'mongodb+srv://petshop:ervamate@cluster0-rnfue.mongodb.net/petshop?retryWrites=true&w=majority',
+      'mongodb+srv://petshop:ervamate@cluster0-7ucoa.mongodb.net/test?retryWrites=true&w=majority',
       { useCreateIndex: true,
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
               },
     ),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'ervamate',
+      database: 'petshop',
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: true,
+    }),
     BackofficeModule,
+    StoreModule,
   ],
   controllers: [AppController],
   providers: [AppService],
