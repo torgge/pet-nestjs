@@ -4,6 +4,7 @@ import { AppModule } from './../src/app.module';
 
 describe('AppController (e2e)', () => {
   let app;
+  let a;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
