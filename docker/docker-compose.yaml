@@ -7,7 +7,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "ervamate"
       MYSQL_DATABASE: "petshop"
-    ports:
+    ports::
       - "3306:3306"
     volumes:
       - /home/gbonespirito/Development/devops/MariaDB:/var/lib/mysql
