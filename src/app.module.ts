@@ -10,7 +10,7 @@ import { StoreModule } from './modules/store/store.module';
 @Module({
   imports: [
     MongooseModule.forRoot(
-      'mongodb+srv://petshop:ervamate@cluster0-7ucoa.mongodb.net/test?retryWrites=true&w=majority',
+      'mongodb://localhost:27017',
       {
         useCreateIndex: true,
         useNewUrlParser: true,
