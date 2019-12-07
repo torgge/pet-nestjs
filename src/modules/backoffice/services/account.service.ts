@@ -28,4 +28,8 @@ export class AccountService {
       .populate('user', '-password')
       .exec();
   }
+
+  async update(username: string, data: any): Promise<User> {
+    return await this.userModel.findOneAndUpdate({ username }, data);
+  }
 }
