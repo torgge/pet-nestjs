@@ -3,13 +3,13 @@ import { Injectable } from '@nestjs/common';
 import { AccountService } from '../../modules/backoffice/services/account.service';
 import { JwtPayload } from '../interfaces/jwt-payload.interface';
 
-
 @Injectable()
 export class AuthService {
   constructor(
     private readonly accountService: AccountService,
     private readonly jwtService: JwtService,
-  ) {}
+  ) {
+  }
 
   async createToken(document, email, image, roles: string[]) {
     const user: JwtPayload = {
