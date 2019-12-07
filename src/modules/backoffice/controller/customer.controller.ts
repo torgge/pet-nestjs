@@ -14,12 +14,12 @@ import { Customer } from '../models/customer.model';
 import { Result } from '../models/result.model';
 import { ValidatorInterceptor } from '../../../interceptors/validator.interceptor';
 import { CreateCustomerContract } from '../contracts/customer/create-customer.contract';
-import { CreateCustomerDto } from '../dtos/create-customer.dto';
+import { CreateCustomerDto } from '../dtos/customer/create-customer.dto';
 import { AccountService } from '../services/account.service';
 import { User } from '../models/user.model';
 import { CustomerService } from '../services/customer.service';
 import { QueryDto } from '../dtos/query.dto';
-import { UpdateCustomerDto } from '../dtos/update-customer.dto';
+import { UpdateCustomerDto } from '../dtos/customer/update-customer.dto';
 import { UpdateCustomerContract } from '../contracts/customer/update-customer.contract';
 import { CreateCreditCardContract } from '../contracts/customer/create-credit-card.contract';
 import { CreditCard } from '../models/credit-card.model';
@@ -77,7 +77,7 @@ export class CustomerController {
     let customer;
     try {
       user = await this.accountService.create(
-        new User(model.document, model.password, true),
+        new User(model.document, model.password, true, ['user']),
       );
       customer = await this.customerService.create(
         new Customer(

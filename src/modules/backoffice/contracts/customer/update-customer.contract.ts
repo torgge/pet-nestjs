@@ -1,7 +1,7 @@
 import { Contract } from '../contract';
 import { FluentValidator } from '../../../../utils/fluent-validator';
 import { Injectable } from '@nestjs/common';
-import { UpdateCustomerDto } from '../../dtos/update-customer.dto';
+import { UpdateCustomerDto } from '../../dtos/customer/update-customer.dto';
 
 @Injectable()
 export class UpdateCustomerContract implements Contract {

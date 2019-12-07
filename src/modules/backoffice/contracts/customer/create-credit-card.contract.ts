@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Contract } from '../contract';
 import { FluentValidator } from '../../../../utils/fluent-validator';
-import { CreateCustomerDto } from '../../dtos/create-customer.dto';
+import { CreateCustomerDto } from '../../dtos/customer/create-customer.dto';
 import { CreditCard } from '../../models/credit-card.model';
 
 @Injectable()

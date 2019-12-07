@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { Customer } from '../models/customer.model';
 import { QueryDto } from '../dtos/query.dto';
-import { UpdateCustomerDto } from '../dtos/update-customer.dto';
+import { UpdateCustomerDto } from '../dtos/customer/update-customer.dto';
 import { CreditCard } from '../models/credit-card.model';
 
 @Injectable()
