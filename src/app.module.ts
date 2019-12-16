@@ -6,20 +6,22 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BackofficeModule } from './modules/backoffice/backoffice.module';
 import { StoreModule } from './modules/store/store.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb://localhost:27017',
-      {
-        useCreateIndex: true,
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      },
+    ConfigModule.forRoot({
+      envFilePath: '.development.env',
+    }
     ),
+    MongooseModule.forRoot(process.env.MONGO_CONNECTION, {
+      useCreateIndex: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: process.env.MYSQL_CONNECTION,
       port: 3306,
       username: 'root',
       password: 'ervamate',

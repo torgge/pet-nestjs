@@ -1,7 +1,3 @@
 export class ResetPasswordDto {
-    constructor(
-        public document: string,
-    ) {
-
-    }
+  constructor(public document: string) {}
 }

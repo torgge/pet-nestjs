@@ -8,8 +8,7 @@ export class AuthService {
   constructor(
     private readonly accountService: AccountService,
     private readonly jwtService: JwtService,
-  ) {
-  }
+  ) {}
 
   async createToken(document, email, image, roles: string[]) {
     const user: JwtPayload = {
@@ -23,6 +22,6 @@ export class AuthService {
 
   async validateUser(payload: JwtPayload): Promise<any> {
     //return await this.accountService.findOneByUsername(payload.username);
-     return payload;
+    return payload;
   }
 }

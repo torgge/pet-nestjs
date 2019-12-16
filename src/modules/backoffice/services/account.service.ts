@@ -6,11 +6,10 @@ import { Customer } from '../models/customer.model';
 
 @Injectable()
 export class AccountService {
-  
   constructor(
     @InjectModel('User') private readonly userModel: Model<User>,
-    @InjectModel('User') private readonly customerModel: Model<Customer>
-    ) {}
+    @InjectModel('User') private readonly customerModel: Model<Customer>,
+  ) {}
 
   async create(data: User): Promise<User> {
     const user = new this.userModel(data);
@@ -19,12 +18,10 @@ export class AccountService {
 
   async authenticate(username, password): Promise<Customer> {
     return await this.customerModel
-      .findOne(
-        {
-          'user.username': username,
-          'user.password': password,
-        }
-      )
+      .findOne({
+        'user.username': username,
+        'user.password': password,
+      })
       .populate('user', '-password')
       .exec();
   }
