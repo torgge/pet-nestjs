@@ -12,16 +12,16 @@ export class AuthService {
 
   async createToken(document, email, image, roles: string[]) {
     const user: JwtPayload = {
-      document: document,
-      email: email,
-      image: image,
-      roles: roles,
+      document,
+      email,
+      image,
+      roles,
     };
     return this.jwtService.sign(user);
   }
 
   async validateUser(payload: JwtPayload): Promise<any> {
-    //return await this.accountService.findOneByUsername(payload.username);
+    // return await this.accountService.findOneByUsername(payload.username);
     return payload;
   }
 }

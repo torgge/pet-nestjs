@@ -1,5 +1,5 @@
 import {
-  Body,
+  Body, CacheInterceptor,
   Controller,
   Delete,
   Get,
@@ -23,6 +23,8 @@ import { UpdateCustomerDto } from '../dtos/customer/update-customer.dto';
 import { UpdateCustomerContract } from '../contracts/customer/update-customer.contract';
 import { CreateCreditCardContract } from '../contracts/customer/create-credit-card.contract';
 import { CreditCard } from '../models/credit-card.model';
+import { Md5 } from 'md5-typescript';
+import { ResultDto } from '../dtos/result.dto';
 
 @Controller(`/v1/customers`)
 export class CustomerController {
@@ -32,6 +34,7 @@ export class CustomerController {
   ) {}
 
   @Get()
+  @UseInterceptors(CacheInterceptor)
   async getAll() {
     try {
       const customers = await this.customerService.findAll();
@@ -73,31 +76,14 @@ export class CustomerController {
   @Post()
   @UseInterceptors(new ValidatorInterceptor(new CreateCustomerContract()))
   async post(@Body() model: CreateCustomerDto) {
-    let user;
-    let customer;
     try {
-      user = await this.accountService.create(
-        new User(model.document, model.password, true, ['user']),
-      );
-      customer = await this.customerService.create(
-        new Customer(
-          model.name,
-          model.document,
-          model.email,
-          null,
-          null,
-          null,
-          null,
-          user,
-        ),
-      );
-
-      return new Result(`Cliente criado com sucesso`, true, customer, null);
+      const password = await Md5.init(`${model.password}${process.env.SALT_KEY}`);
+      const user = await this.accountService.create(new User(model.document, password, false, ['user']));
+      const customer = new Customer(model.name, model.document, model.email, [], null, null, null, user);
+      await this.customerService.create(customer);
+      return new ResultDto(null, true, model, null);
     } catch (error) {
-      throw new HttpException(
-        new Result(`Cliente não pode ser criado`, false, null, error),
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new HttpException(new ResultDto('Não foi possível realizar seu cadastro', false, null, error), HttpStatus.BAD_REQUEST);
     }
   }
 

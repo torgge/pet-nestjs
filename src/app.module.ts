@@ -12,7 +12,7 @@ import { ConfigModule } from '@nestjs/config';
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.development.env',
-    }
+    },
     ),
     MongooseModule.forRoot(process.env.MONGO_CONNECTION, {
       useCreateIndex: true,

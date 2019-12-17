@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpService, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { Address } from '../models/address.model';
@@ -9,9 +9,9 @@ import { AddressType } from '../enums/address-type.enum';
 @Injectable()
 export class AddressService {
   constructor(
-    @InjectModel('Customer')
-    private readonly model: Model<Address>,
-  ) {}
+    @InjectModel('Customer') private readonly model: Model<Address>,
+    private readonly httpService: HttpService) {
+  }
 
   async create(
     document: string,
@@ -21,22 +21,27 @@ export class AddressService {
     const options = { upsite: true };
     return type === AddressType.Billing
       ? await this.model.findOneAndUpdate(
-          { document },
-          {
-            $set: {
-              billingAddress: data,
-            },
+        { document },
+        {
+          $set: {
+            billingAddress: data,
           },
-          options,
-        )
+        },
+        options,
+      )
       : await this.model.findOneAndUpdate(
-          { document },
-          {
-            $set: {
-              shippingAddress: data,
-            },
+        { document },
+        {
+          $set: {
+            shippingAddress: data,
           },
-          options,
-        );
+        },
+        options,
+      );
+  }
+
+  getAddressByZipCode(zipcode: string) {
+    const url = `https://viacep.com.br/ws/${zipcode}/json/`;
+    return this.httpService.get(url);
   }
 }

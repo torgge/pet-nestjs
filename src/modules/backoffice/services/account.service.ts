@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../models/user.model';
 import { Customer } from '../models/customer.model';
+import { Md5 } from 'md5-typescript';
 
 @Injectable()
 export class AccountService {
@@ -17,13 +18,17 @@ export class AccountService {
   }
 
   async authenticate(username, password): Promise<Customer> {
-    return await this.customerModel
-      .findOne({
-        'user.username': username,
-        'user.password': password,
-      })
-      .populate('user', '-password')
+    const customer = await this.customerModel
+      .findOne({ document: username})
+      .populate('user')
       .exec();
+
+    const pass = await Md5.init(`${password}${process.env.SALT_KEY}`);
+    if (pass.toString() === customer.user.password.toString()) {
+      return customer;
+    } else {
+      return null;
+    }
   }
 
   async update(username: string, data: any): Promise<User> {
